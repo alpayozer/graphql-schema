@@ -1,4 +1,4 @@
-# Types
+// Types
 
 type Employee {
   employee_id: ID!
@@ -7,7 +7,7 @@ type Employee {
   email: String!
   position: String
   status: EmployeeStatus!
-  tasks: [EmployeeTask!]  # Relation: Employee → Tasks
+  tasks: [EmployeeTask!]  // Relation: Employee → Tasks
 }
 
 enum EmployeeStatus {
@@ -22,7 +22,7 @@ type Template {
   template_name: String!
   type: TemplateType!
   created_by: User!
-  tasks: [TemplateTask!]  # Relation: Template → TemplateTasks
+  tasks: [TemplateTask!]  // Relation: Template → TemplateTasks
 }
 
 enum TemplateType {
@@ -35,7 +35,7 @@ type TemplateTask {
   template: Template!
   task_name: String!
   assignee_role: String!
-  relative_timing: String! # e.g., "Day 1", "-3 days"
+  relative_timing: String! // e.g., "Day 1", "-3 days"
 }
 
 type EmployeeTask {
@@ -74,7 +74,7 @@ type Notification {
   created_at: String!
 }
 
-# Queries
+// Queries
 
 type Query {
   # Employees
@@ -100,28 +100,28 @@ type Query {
 # Mutations
 
 type Mutation {
-  # Employees
+  // Employees
   createEmployee(first_name: String!, last_name: String!, email: String!, position: String): Employee
   updateEmployee(id: ID!, status: EmployeeStatus, position: String): Employee
   deleteEmployee(id: ID!): Boolean
 
-  # Templates
+  // Templates
   createTemplate(template_name: String!, type: TemplateType!, created_by: ID!): Template
   addTemplateTask(template_id: ID!, task_name: String!, assignee_role: String!, relative_timing: String!): TemplateTask
 
-  # Employee Tasks
+  // Employee Tasks
   assignTasksToEmployee(employee_id: ID!, template_id: ID!): [EmployeeTask!] # Generates tasks from template
   updateTaskStatus(emp_task_id: ID!, status: TaskStatus!): EmployeeTask
 
-  # Users
+  // Users
   createUser(name: String!, email: String!, role: UserRole!): User
   updateUserRole(user_id: ID!, role: UserRole!): User
 
-  # Notifications
+  // Notifications
   markNotificationRead(notification_id: ID!): Notification
 }
 
-# Subscriptions
+// Subscriptions
 
 type Subscription {
   taskAssigned(user_id: ID!): EmployeeTask
